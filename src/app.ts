@@ -1,16 +1,11 @@
 import express from 'express';
-import passport from 'passport';
-import passportLocal from 'passport-local';
 
+import passport from './config/passport-config';
 import accountRoutes from './routes/account';
 import productRoutes from './routes/product';
 
 const app = express();
-
-const Strategy = passportLocal.Strategy;
-passport.use(new Strategy({usernameField: 'username'}, (username, password, done) => {
-
-}));
+const ps = passport;
 
 app.use('/sinus_shop/account/', accountRoutes);
 app.use('/sinus_shop/products/', productRoutes);
