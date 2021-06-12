@@ -1,3 +1,4 @@
+import cors from 'cors';
 import express from 'express';
 
 import passport from './config/passport-config';
@@ -9,6 +10,9 @@ const app = express();
 const ps = passport;
 
 app.use(express.json());
+app.use(cors({
+    origin: true
+}));
 
 app.use('/sinus_shop/account', accountRoutes);
 app.use('/sinus_shop/account', cartRoutes);
