@@ -18,4 +18,28 @@ passport.use('signup', new LocalStrategy({usernameField: 'username', passwordFie
     }
 }));
 
+passport.use('login', new LocalStrategy({usernameField: 'username', passwordField: 'password'}, async (username, password, done) => {
+    try {
+        const passwordSnapshot = await db.collection('accounts').where('username', '==', username).limit(1).select('password').get();
+        const localPassword: string = passwordSnapshot.docs[0].data().password;
+        if (localPassword.match(password)) {
+            const accountSnapshot = await db.collection('accounts').where('username', '==', username).limit(1).get();
+            const account: Account = accountSnapshot.docs[0].data() as unknown as Account;
+            return done(null, account);
+        }
+    } catch (error) {
+        done(error);
+    }
+}));
+
+passport.use('account', new LocalStrategy({usernameField: 'username', passwordField: 'password'}, async (username, password, done) => {
+    try {
+        const snapshot = await db.collection('accounts').where('username', '==', username).limit(1).get();
+        const account = snapshot.docs[0].data();
+        return done(null, account);
+    } catch (error) {
+        done(error);
+    }
+}));
+
 export default passport;

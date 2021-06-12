@@ -14,9 +14,9 @@ export const getAccount = async (req: Request, res: Response) => {
 };
 
 export const postAccountLogin = async (req: Request, res: Response) => {
-    res.json({message: 'Success', user: req.user});
+    res.json({message: 'Success'});
 };
 
 export const postAccountSignup = async (req: Request, res: Response) => {
-    res.send("Signup success");
+    res.json({message: 'Success'});
 };
