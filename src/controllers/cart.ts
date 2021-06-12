@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import admin from '../config/firebase-config';
-import { Account, CartItem } from '../types/account';
+import { CartItem } from '../types/account';
 
 const db = admin.firestore();
 
@@ -10,7 +10,7 @@ export const getCart = async (req: Request, res: Response) => {
     if (!doc.exists) {
         res.send('No such document!');
     } else {
-        const cart = (doc.data() as Account).cart;
+        const cart: Array<CartItem> = doc.data()?.cart;
         res.json(cart);
     }
 };
