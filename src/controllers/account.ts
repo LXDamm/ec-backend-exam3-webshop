@@ -1,12 +1,10 @@
-import express, { NextFunction, Request, Response } from 'express';
-import passport from '../config/passport-config';
+import { Request, Response } from 'express';
 import admin from '../config/firebase-config';
-import { Account } from '../types/account';
 
 const db = admin.firestore();
 
 export const getAccount = async (req: Request, res: Response) => {
-    const id = req.params.id.trim();
+    const id = req.params.a_id.trim();
     const doc = await db.collection('accounts').doc(id).get();
     if (!doc.exists) {
         res.send('No such document!');
@@ -16,18 +14,9 @@ export const getAccount = async (req: Request, res: Response) => {
 };
 
 export const postAccountLogin = async (req: Request, res: Response) => {
-    console.log("Login attempt");
-    /*passport.authenticate('local', (err: Error, user: User) => {
-
-    })(req, res, next);*/
+    res.json({message: 'Success', user: req.user});
 };
 
-export const updateAccountCart = async (req: Request, res: Response) => {
-    const id = req.params.id;
-    const docRef = db.collection('accounts').doc(id);
-    if (docRef) {
-        const result = await docRef.update({cart: {products: []}});
-        console.log(result);
-    }
-    res.send('Has run');
+export const postAccountSignup = async (req: Request, res: Response) => {
+    res.send("Signup success");
 };
