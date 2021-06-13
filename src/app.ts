@@ -24,6 +24,6 @@ app.get('/*', (req, res) => {
     res.send('Ah ah ah, you didn\'t say the magic word\n' + req.path);
 });
 
-app.listen(8080, () => { });
+app.listen(32468, () => { });
 
 export default app;
