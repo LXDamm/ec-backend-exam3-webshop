@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc-watch --onSuccess \"node --es-module-specifier-resolution=node ./dist/app.js\""
+    "watch": "tsc-watch --onSuccess \"node --es-module-specifier-resolution=node ./dist/app.js\"",
+    "start": "echo \"Use yarn watch instead, or build with yarn build and then use node on ./dist/\""
   },
   "license": "MIT",
   "dependencies": {

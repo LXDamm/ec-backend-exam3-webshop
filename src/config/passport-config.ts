@@ -1,23 +1,11 @@
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import { v4 as uuidv4 } from 'uuid';
 
 import admin from '../config/firebase-config';
 import { Account } from '../types/account';
 
 const db = admin.firestore();
 
-/*passport.use('signup', new LocalStrategy({usernameField: 'username', passwordField: 'password'}, async (username, password, done) => {
-    try {
-        const account: Account = {
-            id: uuidv4(), username, password, firstname: '', lastname: '', address: { street: '', postcode: '', town: '' }, cart: []
-        }
-        const result = await db.collection('accounts').add(account);
-        return done(null, account);
-    } catch (error) {
-        done(error);
-    }
-}));*/
 
 passport.use('login', new LocalStrategy({usernameField: 'username', passwordField: 'password'}, async (username, password, done) => {
     try {

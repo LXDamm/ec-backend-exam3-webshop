@@ -29,6 +29,22 @@ export const getProduct = async (req: Request, res: Response) => {
     }
 };
 
+export const getCategoryFilteredProducts = async (req: Request, res: Response) => {
+    const category = req.params.category.trim();
+    const docs = await db.collection('products').where('category', '==', category).get();
+    if (docs.empty) {
+        res.send('No products');
+    } else {
+        let products: Array<Product> = [];
+        docs.forEach((doc) => {
+            let product = doc.data() as Product;
+            product.id = doc.id;
+            products.push(product);
+        });
+        res.send(products);
+    }
+};
+
 export const updateProductQuantityInStock = async (req: Request, res: Response) => {
     const productId = req.params.p_id.trim();
     const operation = req.params.operation.trim();
