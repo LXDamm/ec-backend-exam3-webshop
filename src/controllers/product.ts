@@ -14,15 +14,15 @@ export const getAllProducts = async (req: Request, res: Response) => {
             product.id = doc.id;
             products.push(product);
         });
-        res.send(products);
+        res.json(products);
     }
 };
 
 export const getProduct = async (req: Request, res: Response) => {
-    const productId = req.params.p_id.trim();
+    const productId = req.params.productId.trim();
     const doc = await db.collection('products').doc(productId).get();
     if (!doc.exists) {
-        res.send('No such product');
+        res.send('No such product ( )');
     } else {
         let product: Product = doc.data() as unknown as Product;
         res.json(product);
@@ -41,12 +41,23 @@ export const getCategoryFilteredProducts = async (req: Request, res: Response) =
             product.id = doc.id;
             products.push(product);
         });
-        res.send(products);
+        res.json(products);
+    }
+};
+
+export const getProductQuantityInStock = async (req: Request, res: Response) => {
+    const productId = req.params.productId.trim();
+    const doc = await db.collection('products').doc(productId).get();
+    if (!doc.exists) {
+        res.send('No such product');
+    } else {
+        let product: Product = doc.data() as unknown as Product;
+        res.json(product.stock);
     }
 };
 
 export const updateProductQuantityInStock = async (req: Request, res: Response) => {
-    const productId = req.params.p_id.trim();
+    const productId = req.params.productId.trim();
     const operation = req.params.operation.trim();
     const docRef = db.collection('products').doc(productId);
     const doc = await docRef.get();
@@ -63,6 +74,6 @@ export const updateProductQuantityInStock = async (req: Request, res: Response) 
             return;
         }
         const result = await docRef.update(product);
-        res.send(result);
+        res.json(result);
     }
 };
