@@ -17,7 +17,6 @@
     "@types/node": "^15.12.2",
     "@types/passport": "^1.0.6",
     "@types/passport-jwt": "^3.0.5",
-    "@types/passport-local-mongoose": "^4.0.14",
     "@types/uuid": "^8.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -28,7 +27,6 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
-    "passport-local-mongoose": "^6.1.0",
     "tsc-watch": "^4.4.0",
     "typescript": "^4.3.2",
     "uuid": "^8.3.2"

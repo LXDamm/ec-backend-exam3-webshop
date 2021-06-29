@@ -17,8 +17,9 @@ export const getCart = async (req: Request, res: Response) => {
 
 export const putProductInCart = async (req: Request, res: Response) => {
     const accountId = req.params.a_id.trim();
+    const productId = req.params.p_id.trim();
     const cartItem: CartItem = {
-        id: req.params.p_id.trim(),
+        id: productId,
         quantity: req.params.quantity.trim() as unknown as number
     };
     const docRef = db.collection('accounts').doc(accountId);
@@ -27,7 +28,13 @@ export const putProductInCart = async (req: Request, res: Response) => {
         res.send('No such document!');
     } else {
         const cart: Array<CartItem> = doc.data()?.cart;
-        cart.push(cartItem);
+        const cartItemUpdate = cart.find(item => item.id === productId)
+        if (cartItemUpdate) {
+            cartItemUpdate.quantity++;
+        }
+        else {
+            cart.push(cartItem);
+        }
         const result = await docRef.update({cart});
         res.send(result);
     }
